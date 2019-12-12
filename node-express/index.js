@@ -1,16 +1,18 @@
 const express = require('express'),
-    http = require('http');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const hostname = 'localhost';
-const port = 3000;
+    http = require('http'),
+    bodyParser = require('body-parser'),
+    morgan = require('morgan'),
+    hostname = 'localhost',
+    port = 3000;
 
 const dishRouter = require('./routes/dishRouter');
+const dishRouter1 = require('./routes/dishRouter1');
+
 const app = express();
 
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
-app.use('/dishes', dishRouter);
+app.use('/dishes/:dishId', dishRouter1);
 app.use((req, res, next) => {
     console.log(req.headers);
     res.statusCode = 200;
@@ -19,8 +21,6 @@ app.use((req, res, next) => {
 
 });
 
-const server = http.createServer(app);
-
-server.listen(port, hostname, () => {
+app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
