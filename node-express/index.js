@@ -12,7 +12,11 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
-app.use('/dishes/:dishId', dishRouter1);
+app.use("/dishes/:dishId", (req, res, next) => {
+    console.log(req.params);
+    next();
+});
+app.use(dishRouter1);
 app.use((req, res, next) => {
     console.log(req.headers);
     res.statusCode = 200;
