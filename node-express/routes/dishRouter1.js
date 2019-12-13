@@ -19,7 +19,7 @@ dishRouter.route("/dishes/:dishId")
     })
     .put((req, res, next) => {
         res.write(` Updating ${req.params.dishId} \n`);
-        res.end('\n updted ' + req.params.dishId + 'with name' + req.body.name + ' and description' + req.body.description);
+        res.end('\n updated ' + req.params.dishId + ' with name ' + req.body.name + ' and description ' + req.body.description);
     })
     .delete((req, res, next) => {
         res.end('Deleting all dishes');

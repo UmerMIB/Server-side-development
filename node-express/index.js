@@ -7,16 +7,14 @@ const express = require('express'),
 
 const dishRouter = require('./routes/dishRouter');
 const dishRouter1 = require('./routes/dishRouter1');
+const promoRouter = require('./routes/promoRouter');
 
 const app = express();
 
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
-app.use("/dishes/:dishId", (req, res, next) => {
-    console.log(req.params);
-    next();
-});
 app.use(dishRouter1);
+app.use(promoRouter);
 app.use((req, res, next) => {
     console.log(req.headers);
     res.statusCode = 200;
