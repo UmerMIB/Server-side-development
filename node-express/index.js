@@ -3,18 +3,21 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
     hostname = 'localhost',
+    app = express(),
     port = 3000;
 
-const dishRouter = require('./routes/dishRouter');
-const dishRouter1 = require('./routes/dishRouter1');
-const promoRouter = require('./routes/promoRouter');
 
-const app = express();
+const dishRouter = require('./routes/dishRouter'),
+    promoRouter = require('./routes/promoRouter'),
+    leaderRouter = require('./routes/leaderRouter');
+
 
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
-app.use(dishRouter1);
-app.use(promoRouter);
+app.use('/dishes', dishRouter);
+app.use('/promotions', promoRouter);
+app.use('/leaders', leaderRouter);
+
 app.use((req, res, next) => {
     console.log(req.headers);
     res.statusCode = 200;
