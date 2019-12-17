@@ -20,7 +20,7 @@ exports.removeDocument = (db, document, collection, callback) => {
 
 exports.findDocument = (db, collection, callback) => {
     const coll = db.collection(collection);
-    coll.findOne({}).toArray((err, docs) => {
+    coll.find({}).toArray((err, docs) => {
         assert.equal(err, null);
         callback(docs);
     })
@@ -28,9 +28,9 @@ exports.findDocument = (db, collection, callback) => {
 
 exports.updateDocument = (db, document, update, collection, callback) => {
     const coll = db.collection(collection);
-    coll.updateOne(document, { $set: update }, (err, result) => {
+    coll.updateOne(document, { $set: update }, null, (err, result) => {
         assert.equal(err, null);
-        console.log(` successfully updated documents with ${update}`);
+        console.log(' successfully updated documents with', update);
         callback(result);
     })
 };
