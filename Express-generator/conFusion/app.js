@@ -1,18 +1,26 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors'),
+    express = require('express'),
+    path = require('path'),
+    cookieParser = require('cookie-parser'),
+    logger = require('morgan'),
+    mongoose = require('mongoose'),
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var dishRouter = require('./routes/dishRouter');
-var promoRouter = require('./routes/promoRouter');
-var leaderRouter = require('./routes/leaderRouter');
+    indexRouter = require('./routes/index'),
+    usersRouter = require('./routes/users'),
+    dishRouter = require('./routes/dishRouter'),
+    promoRouter = require('./routes/promoRouter'),
+    leaderRouter = require('./routes/leaderRouter'),
+    Dishes = require('./models/dishes');
+app = express();
 
-var app = express();
 
-// view engine setup
+mongoose.connect(url)
+    .then((db) => {
+        console.log(`Server correctly connected `);
+    }, (err) => {
+        console.log('Error occured while connecting ', err)
+    })
+    // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
