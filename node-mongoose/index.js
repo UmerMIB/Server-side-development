@@ -38,15 +38,33 @@ mongoose.connect(url)
     .then((db) => {
         console.log(` Server correctly connected `);
         dishes.create({
-                name: 'umer1 ',
-                description: 'umer testing here1'
+                name: 'umer4 ',
+                description: 'umer testing here4',
+                // comment: {
+                //     rating: 3,
+                //     comment: "good",
+                //     author: 'umer here',
+                // }
             })
             .then((dish) => {
                 console.log('dishes are', dish);
-                return dishes.find({}).exec()
+                return dishes.findByIdAndUpdate(dish.id, {
+                    $set: { description: 'updated2 test' }
+                }, {
+                    new: true
+                }).exec()
             })
             .then((dish) => {
                 console.log('all dishes are', dish);
+                dish.comment.push({
+                    rating: 3,
+                    comment: "good",
+                    author: 'umer here',
+                })
+                return dish.save()
+            })
+            .then((dish) => {
+                console.log('comments added', dish);
                 return dishes.remove()
             })
             .then(() => {
