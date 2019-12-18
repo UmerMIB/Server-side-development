@@ -10,7 +10,7 @@ MongoClient.connect(url, (err, client) => {
     assert.equal(err, null);
     console.log('Server correctly connected');
     const db = client.db(dbName);
-    //     collection = db.collection('dishes');
+    collection = db.collection('dishes');
     // collection.insertOne({
     //     "name": "Umer",
     //     "description": "test"
@@ -31,34 +31,75 @@ MongoClient.connect(url, (err, client) => {
     // })
 
 
-    dboper.insertDocument(db, {
-        name: "ali",
-        description: " BOI"
-    }, 'dishes', (result) => {
-        assert.equal(err, null);
-        console.log('Document added', result.ops);
+    // dboper.insertDocument(db, {
+    //     name: "ali",
+    //     description: " BOI"
+    // }, 'dishes', (result) => {
+    //     assert.equal(err, null);
+    //     console.log('Document added', result.ops);
 
-        dboper.findDocument(db, 'dishes', (docs) => {
-            assert.equal(err, null);
-            console.log('Found documents', docs);
+    //     dboper.findDocument(db, 'dishes', (docs) => {
+    //         assert.equal(err, null);
+    //         console.log('Found documents', docs);
 
 
-            dboper.updateDocument(db, { name: "ali" }, { description: "updated description" }, 'dishes', (result) => {
-                assert.equal(err, null);
-                console.log('Document updated', result.result);
+    //         dboper.updateDocument(db, { name: "ali" }, { description: "updated description" }, 'dishes', (result) => {
+    //             assert.equal(err, null);
+    //             console.log('Document updated', result.result);
 
-                dboper.findDocument(db, 'dishes', (docs) => {
-                    assert.equal(err, null);
-                    console.log('Found documents', docs);
+    //             dboper.findDocument(db, 'dishes', (docs) => {
+    //                 assert.equal(err, null);
+    //                 console.log('Found documents', docs);
 
-                    db.dropCollection("dishes", (result) => {
-                        console.log("Dropped Collection: ", result);
+    //                 db.dropCollection("dishes", (result) => {
+    //                     console.log("Dropped Collection: ", result);
 
-                        client.close();
-                    })
-                })
-            })
+    //                     client.close();
+    //                 })
+    //             })
+    //         })
 
+    //     })
+    // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    dboper.insertDocument(db, { name: "ali", description: " BOI" }, 'dishes')
+        .then((result) => {
+            console.log('Document added', result.ops);
+            return dboper.findDocument(db, 'dishes')
         })
+        .then((docs) => {
+            console.log('Found documents', docs);
+            return dboper.updateDocument(db, { name: "ali" }, { description: "11111updated description" }, 'dishes')
+        })
+        .then((result) => {
+            console.log('Document updated', result.result);
+
+            return dboper.findDocument(db, 'dishes')
+        })
+
+    .then((docs) => {
+        console.log('Found documents', docs);
+        return db.dropCollection("dishes")
+
+    })
+
+
+    .then((result) => {
+        console.log("Dropped Collection: ", result);
+        return client.close();
+
     })
 })
