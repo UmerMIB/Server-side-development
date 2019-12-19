@@ -17,7 +17,7 @@ dishRouter.route('/')
         Dishes.find({})
             .then((dish) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'text/plain');
+                res.setHeader('Content-Type', 'application/json');
                 res.json(dish);
             }, (err) => next(err))
     })
@@ -26,7 +26,7 @@ dishRouter.route('/')
         Dishes.create(req.body)
             .then((dish) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'text/plain');
+                res.setHeader('Content-Type', 'application/json');
                 res.json(dish);
             }, (err) => next(err))
 
@@ -40,7 +40,7 @@ dishRouter.route('/')
         Dishes.remove({})
             .then((dish) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'text/plain');
+                res.setHeader('Content-Type', 'application/json');
                 res.json(dish);
             }, (err) => next(err))
     });
@@ -57,9 +57,10 @@ dishRouter.route("/:dishId")
         Dishes.findById(req.params.dishId)
             .then((dish) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'text/plain');
+                res.setHeader('Content-Type', 'application/json');
                 res.json(dish);
             }, (err) => next(err))
+            .catch((err) => next(err));
     })
     .post((req, res, next) => {
         res.statusCode = 403;
@@ -75,7 +76,7 @@ dishRouter.route("/:dishId")
             })
             .then((dish) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'text/plain');
+                res.setHeader('Content-Type', 'application/json');
                 res.json(dish);
             }, (err) => next(err))
     })
@@ -84,7 +85,7 @@ dishRouter.route("/:dishId")
         Dishes.findByIdAndRemove(req.params.body)
             .then((dish) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'text/plain');
+                res.setHeader('Content-Type', 'application/json');
                 res.json(dish);
             }, (err) => next(err))
     })

@@ -10,11 +10,12 @@ const createError = require('http-errors'),
     dishRouter = require('./routes/dishRouter'),
     promoRouter = require('./routes/promoRouter'),
     leaderRouter = require('./routes/leaderRouter'),
+    url = 'mongodb://localhost:27017/conFusion',
     Dishes = require('./models/dishes');
 app = express();
 
 
-mongoose.connect(url)
+mongoose.connect(url, { useNewUrlParser: true })
     .then((db) => {
         console.log(`Server correctly connected `);
     }, (err) => {
